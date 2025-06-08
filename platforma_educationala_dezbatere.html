@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test de argumentare</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #004d66;
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      background-color: #004d66;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test de argumentare</h1>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. Ce element nu este esențial într-un argument solid?</p>
+        <label><input type="radio" name="q1" value="a"> O concluzie vagă</label>
+        <label><input type="radio" name="q1" value="b"> Un exemplu concret</label>
+        <label><input type="radio" name="q1" value="c"> O afirmație clară</label>
+      </div>
+      <div class="question">
+        <p>2. Ce rol are contraargumentarea într-o dezbatere?</p>
+        <label><input type="radio" name="q2" value="a"> Să respingă orice opinie diferită</label>
+        <label><input type="radio" name="q2" value="b"> Să ofere un punct de vedere nejustificat</label>
+        <label><input type="radio" name="q2" value="c"> Să identifice și să răspundă punctelor slabe din poziția adversă</label>
+      </div>
+      <div class="question">
+        <p>3. Alege varianta care exprimă cel mai clar un exemplu în sprijinul unui argument despre educație digitală:</p>
+        <label><input type="radio" name="q3" value="a"> Cred că este bine să avem internet</label>
+        <label><input type="radio" name="q3" value="b"> Programul „Ora de Net” a arătat o reducere a riscurilor online în rândul elevilor</label>
+        <label><input type="radio" name="q3" value="c"> Școlile ar trebui să se implice</label>
+      </div>
+      <button type="button" onclick="verificaRaspunsuri()">Verifică</button>
+    </form>
+    <div class="result" id="rezultat"></div>
+  </div>
+
+  <audio id="sunet-corect" src="success.mp3" preload="auto"></audio>
+  <audio id="sunet-gresit" src="error.mp3" preload="auto"></audio>
+
+  <script>
+    function verificaRaspunsuri() {
+      const raspunsuri = {
+        q1: 'a',
+        q2: 'c',
+        q3: 'b'
+      };
+      let punctaj = 0;
+      for (let intreb in raspunsuri) {
+        const selectat = document.querySelector(`input[name="${intreb}"]:checked`);
+        if (selectat && selectat.value === raspunsuri[intreb]) {
+          punctaj++;
+        }
+      }
+      const mesaj = `Ai obținut ${punctaj} din 3 puncte.`;
+      document.getElementById('rezultat').textContent = mesaj;
+
+      const corect = document.getElementById("sunet-corect");
+      const gresit = document.getElementById("sunet-gresit");
+      if (punctaj === 3) {
+        corect.play().catch(e => console.log("Sunet blocat până la interacțiune"));
+      } else {
+        gresit.play().catch(e => console.log("Sunet blocat până la interacțiune"));
+      }
+    }
+  </script>
+</body>
+</html>

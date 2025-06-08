@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redactare Ghidată a Discursului</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #004d66;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    button {
+      background-color: #004d66;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .final-output {
+      margin-top: 30px;
+      background: #e6f2f5;
+      padding: 20px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Redactare Ghidată a Discursului</h1>
+    <p><strong>Pas 1: Introducere</strong></p>
+    <textarea id="introducere" placeholder="Ex: Stimate domnule președinte, stimați colegi..."></textarea>
+
+    <p><strong>Pas 2: Argumentul principal</strong></p>
+    <textarea id="argument" placeholder="Formulează clar punctul tău de vedere."></textarea>
+
+    <p><strong>Pas 3: Exemplu concret</strong></p>
+    <textarea id="exemplu" placeholder="Include o situație reală, o sursă sau un caz."></textarea>
+
+    <p><strong>Pas 4: Concluzie</strong></p>
+    <textarea id="concluzie" placeholder="Reafirmă ideea și încheie cu impact."></textarea>
+
+    <button onclick="genereazaDiscurs()">Generează discursul</button>
+
+    <div class="final-output" id="discursFinal"></div>
+  </div>
+
+  <script>
+    function genereazaDiscurs() {
+      const intro = document.getElementById("introducere").value;
+      const argument = document.getElementById("argument").value;
+      const exemplu = document.getElementById("exemplu").value;
+      const concluzie = document.getElementById("concluzie").value;
+
+      const discurs = `${intro}\n\n${argument}\n\n${exemplu}\n\n${concluzie}`;
+      document.getElementById("discursFinal").textContent = discurs;
+    }
+  </script>
+</body>
+</html>

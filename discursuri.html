@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discursuri interactive – Dezbatere</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      background-color: #004d66;
+      color: white;
+      padding: 20px 0;
+      border-radius: 10px;
+    }
+
+    select, button {
+      font-size: 16px;
+      margin: 10px 5px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .discurs {
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .timer {
+      font-size: 24px;
+      color: #004d66;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Discursuri Interactive</h1>
+    <p>Selectează un rol și exersează cu cronometru</p>
+  </header>
+
+  <div style="text-align:center;">
+    <label for="rolSelect">Alege un rol:</label>
+    <select id="rolSelect">
+      <option value="">-- Selectează --</option>
+      <option value="G1">Guvern 1 – Definiri + Argument 1</option>
+      <option value="G2">Guvern 2 – Contraargument + Argument 2</option>
+      <option value="G3">Guvern 3 – Discurs sumativ</option>
+      <option value="O1">Opoziție 1 – Contraargument + Argument 1</option>
+      <option value="O2">Opoziție 2 – Contraargument + Argument 2</option>
+      <option value="O3">Opoziție 3 – Discurs sumativ</option>
+    </select>
+    <button onclick="afiseazaDiscurs()">Afișează discursul</button>
+    <button onclick="startTimer()">Start cronometru</button>
+    <div class="timer" id="timer">04:00</div>
+  </div>
+
+  <div class="discurs" id="zonaDiscurs">
+    <h2 id="titluRol"></h2>
+    <p id="continutDiscurs"></p>
+  </div>
+
+  <script>
+    const discursuri = {
+      G1: `Stimate domnule președinte, stimați colegi, astăzi susținem o măsură de protejare a minorilor în mediul digital prin acces parental responsabil. Argumentul nostru: prevenirea riscurilor online. Exemplele de cyberbullying și cazuri reale, cum este cel din Buzău, arată nevoia intervenției parentale timpurii.`,
+      G2: `Accesul parental proporțional înseamnă ghidare, nu invazie. Argumentul nostru: formarea comportamentului responsabil online. Proiectul „Ora de Net” și datele Bitdefender susțin ideea implicării pozitive a părinților.`,
+      G3: `Am demonstrat că soluția propusă este echilibrată, justificată și necesară. Supravegherea responsabilă oferă protecție și educație. Vă invităm să votați moțiunea.`,
+      O1: `Considerăm că această măsură este disproporționată. Argumentul nostru: dreptul la intimitate este esențial. Supravegherea excesivă distruge încrederea. Copiii au nevoie de ghidare, nu de control.`,
+      O2: `Există alternative mai eficiente decât supravegherea – educația digitală, dialogul și implicarea empatică. Programele precum „Ora de Net” arată că educația e cheia, nu parola forțată.`,
+      O3: `Guvernul propune control, noi propunem echilibru. Relațiile bazate pe încredere formează adulți responsabili. Refuzăm moțiunea pentru că afectează autonomia copiilor.`,
+    };
+
+    function afiseazaDiscurs() {
+      const rol = document.getElementById("rolSelect").value;
+      const titlu = document.getElementById("titluRol");
+      const continut = document.getElementById("continutDiscurs");
+      const zona = document.getElementById("zonaDiscurs");
+
+      if (discursuri[rol]) {
+        titlu.innerText = rol;
+        continut.innerText = discursuri[rol];
+        zona.style.display = "block";
+      }
+    }
+
+    let timp = 240; // 4 minute
+    let cronometru;
+
+    function startTimer() {
+      clearInterval(cronometru);
+      timp = 240;
+      cronometru = setInterval(() => {
+        const minute = String(Math.floor(timp / 60)).padStart(2, '0');
+        const secunde = String(timp % 60).padStart(2, '0');
+        document.getElementById("timer").innerText = `${minute}:${secunde}`;
+        timp--;
+        if (timp < 0) {
+          clearInterval(cronometru);
+          document.getElementById("timer").innerText = "Timp expiră!";
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>

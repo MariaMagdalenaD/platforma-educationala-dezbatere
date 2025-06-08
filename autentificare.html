@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autentificare – Platformă Educațională</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e6f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #004d66;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: #004d66;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #006680;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Autentificare</h2>
+    <form action="platforma_educationala_dezbatere.html" method="get">
+      <label for="nume">Nume complet:</label>
+      <input type="text" id="nume" name="nume" required />
+
+      <label for="rol">Sunt:</label>
+      <select id="rol" name="rol" required>
+        <option value="" disabled selected>Alege rolul</option>
+        <option value="elev">Elev</option>
+        <option value="profesor">Profesor</option>
+      </select>
+
+      <button type="submit">Continuă</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discursuri interactive – Extins</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      background-color: #004d66;
+      color: white;
+      padding: 20px 0;
+      border-radius: 10px;
+    }
+
+    select, button {
+      font-size: 16px;
+      margin: 10px 5px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .discurs {
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .timer {
+      font-size: 24px;
+      color: #004d66;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Discursuri Interactive – Format Extins</h1>
+    <p>Selectează un rol și exersează cu cronometru</p>
+  </header>
+
+  <div style="text-align:center;">
+    <label for="rolSelect">Alege un rol:</label>
+    <select id="rolSelect">
+      <option value="">-- Selectează --</option>
+      <option value="G1">Guvern 1 – Definiri + Argument 1</option>
+      <option value="G2">Guvern 2 – Contraargument + Argument 2</option>
+      <option value="G3">Guvern 3 – Discurs sumativ</option>
+      <option value="O1">Opoziție 1 – Contraargument + Argument 1</option>
+      <option value="O2">Opoziție 2 – Contraargument + Argument 2</option>
+      <option value="O3">Opoziție 3 – Discurs sumativ</option>
+    </select>
+    <button onclick="afiseazaDiscurs()">Afișează discursul</button>
+    <button onclick="startTimer()">Start cronometru</button>
+    <div class="timer" id="timer">04:00</div>
+  </div>
+
+  <div class="discurs" id="zonaDiscurs">
+    <h2 id="titluRol"></h2>
+    <p id="continutDiscurs"></p>
+  </div>
+
+  <audio id="start-audio" src="start.mp3" preload="auto"></audio>
+  <audio id="end-audio" src="end.mp3" preload="auto"></audio>
+
+  <script>
+    const discursuri = {
+      G1: `Astăzi susținem o măsură esențială pentru protecția minorilor într-un mediu digital tot mai imprevizibil și periculos: accesul părinților sau tutorilor legali la conturile online ale minorilor...`,
+      G2: `Opoziția ne-a vorbit despre intimitate și încredere. Noi nu negăm importanța acestor valori. Dar susținem că, în lipsa unei implicări reale a părinților în viața digitală a copiilor...`,
+      G3: `În calitate de al treilea vorbitor al echipei Guvernului, am responsabilitatea de a clarifica această dezbatere, de a compara cele două cazuri prezentate și de a vă arăta de ce propunerea noastră este necesară, echilibrată și corectă...`,
+      O1: `Deși recunoaștem intenția Guvernului de a proteja minorii în mediul online, considerăm că această măsură – accesul complet și permanent la conturile copiilor – este disproporționată, intruzivă și contraproductivă...`,
+      O2: `Guvernul insistă că accesul la conturile online ale minorilor este o măsură educativă. Însă noi considerăm că aceasta este o confuzie periculoasă între supraveghere și educație...`,
+      O3: `Guvernul a venit cu o soluție care pare simplă, dar care, în esență, este bazată pe teamă, supraveghere totală și desconsiderarea nevoilor emoționale ale minorului...`,
+    };
+
+    function afiseazaDiscurs() {
+      const rol = document.getElementById("rolSelect").value;
+      const titlu = document.getElementById("titluRol");
+      const continut = document.getElementById("continutDiscurs");
+      const zona = document.getElementById("zonaDiscurs");
+
+      if (discursuri[rol]) {
+        titlu.innerText = rol;
+        continut.innerText = discursuri[rol];
+        zona.style.display = "block";
+      }
+    }
+
+    let timp = 240;
+    let cronometru;
+
+    function startTimer() {
+      clearInterval(cronometru);
+      timp = 240;
+      document.getElementById("start-audio").play().catch(() => {});
+      cronometru = setInterval(() => {
+        const minute = String(Math.floor(timp / 60)).padStart(2, '0');
+        const secunde = String(timp % 60).padStart(2, '0');
+        document.getElementById("timer").innerText = `${minute}:${secunde}`;
+        timp--;
+        if (timp < 0) {
+          clearInterval(cronometru);
+          document.getElementById("timer").innerText = "Timp expiră!";
+          document.getElementById("end-audio").play().catch(() => {});
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
